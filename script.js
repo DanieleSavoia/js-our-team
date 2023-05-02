@@ -32,58 +32,86 @@
 
 
 
-const arrMemb = [
-    {
-        name: "Wayne Barnett",
-        role: "Founder & CEO",
-        photo: "wayne-barnett-founder-ceo.jpg",
-    },
-    {
-        name: "Angela Caroll",
-        role: "Chief Editor",
-        photo: "angela-caroll-chief-editor.jpg",
-    },
-    
-    {
-        name: "Walter Gordon",
-        role: "Office Manager",
-        photo: "walter-gordon-office-manager.jpg",
-    },
-    {
-        name: "Angela Lopez",
-        role: "Social Media Manager",
-        photo: "angela-lopez-social-media-manager.jpg",
-    },
-    {
-        name: "Scott Estrada",
-        role: "Developer",
-        photo: "scott-estrada-developer.jpg",
-    },
-    {
-        name: "Barbara Ramos",
-        role: "Graphic Designer",
-        photo: "barbara-ramos-graphic-designer.jpg ",
-    }
+const arrMembers = [
+	{
+		name: 'Wayne Barnett',
+		role: 'Founder & CEO',
+		img: 'wayne-barnett-founder-ceo.jpg',
+	},
+	{
+		name: 'Angela Caroll',
+		role: 'Chief Editor',
+		img: 'angela-caroll-chief-editor.jpg',
+	},
+	{
+		name: 'Walter Gordon',
+		role: 'Office Manager',
+		img: 'walter-gordon-office-manager.jpg',
+	},
+	{
+		name: 'Angela Lopez',
+		role: 'Social Media Manager',
+		img: 'angela-lopez-social-media-manager.jpg',
+	},
+	{
+		name: 'Scott Estrada',
+		role: 'Developer',
+		img: 'scott-estrada-developer.jpg',
+	},
+	{
+		name: 'Barbara Ramos',
+		role: 'Graphic Designer',
+		img: 'barbara-ramos-graphic-designer.jpg',
+	},
 ];
 
-for (let i = 0 ; i < arrMemb.length; i++) {
-    const memb = arrMemb[i];
-    // console.log(`$(memb.name) - $(memb-role) - $(memb-photo)`)
+const eleList = document.querySelector('.grid');
+render(arrMembers, eleList);
 
 
-    console.log("membro" + i);
+// FUNCTION DEFINITIONS
 
-    let = stringmemb = "";
-    for (let key in memb) {
-        stringmemb += memb[key] + " - "
-    }
-    if (stringmemb) {
-        stringmemb = stringmemb.slice(0, -3);
-    }
-    console.log(stringmemb);
+function render(arrMembers, eleContainer) {
+	console.log(arrMembers);
+	eleContainer.innerHTML = '';
+	for (let i = 0; i < arrMembers.length; i++) {
+		const member = arrMembers[i];
+		const stringMember = `${member.name} - ${member.role} - ${member.img}`;
+		// console.log(stringMember);
+		// eleContainer.innerHTML += `<li>${stringMember}</li>`;
+		eleContainer.innerHTML += renderCard(member);
 
+		// console.log('Membro ' + i);
+		// let stringMember = '';
+		// for (let key in member) {
+		// 	stringMember += member[key] + ' - '
+		// 	// console.log(member[key]);
+		// }
+		// if (stringMember) {
+		// 	stringMember = stringMember.slice(0, -3);
+		// }
+		// console.log(stringMember);
+	}
 
-   
-   
+	const btnsRemove = document.querySelectorAll('.btn-remove');
+	for (let i = 0; i < btnsRemove.length; i++) {
+		const btn = btnsRemove[i];
+		btn.addEventListener('click', function() {
+			// rimuovere il membro dall'array
+			arrMembers.splice(i, 1);
+			render(arrMembers, eleList);
+		});
+	}
+}
 
+function renderCard(member) {
+	return `
+		<div class="card">
+			<img src="img/${member.img}" alt="${member.name}">
+			<div class="contents">
+				<h2>${member.name}</h2>
+				<p>${member.role}</p>
+				<button class="btn-remove">Remove</button>
+			</div>
+		</div>`;
 }
